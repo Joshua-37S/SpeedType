@@ -29,8 +29,9 @@
         </div>
         <input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus>
         <h6>
-        <div id="result" style="margin-left: 200px; white-space: nowrap; padding: 50px;">
+        <div id="result" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
         </h6>
+        <div id="greenred" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
         </div>
       </div>
 </body>
@@ -46,9 +47,17 @@ function moveDiv(getDiv, getValue)
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 jQuery('#wordinput').on('keydown', function(e) {
-    if( e.which == 8 || e.which == 46 ){moveDiv('content', +5);}
-    else{moveDiv('content', -5);};
+    if( e.which == 8 || e.which == 46 ){moveDiv('content', +5); MYINDEX --;}
+    else if ((e.which > 8)&&(e.which < 46)&&(e.which !== 32)){}
+    else {moveDiv('content', -5); MYINDEX ++;};
 });
+$(document).ready(function(){
+    $("#wordinput").on("input", function(){
+        // Print entered value in a div box
+        $("#result").text($(this).val());
+        $("#greenred").text(ALLWORDS.slice(MYINDEX, MYINDEX+1));
+});
+})
 </script>
 
 <script type="text/javascript">
@@ -61,6 +70,8 @@ jQuery('#wordinput').on('keydown', function(e) {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         display.innerHTML = this.responseText;
+        ALLWORDS = this.responseText;
+        MYINDEX = 0;
       } else {
         display.innerHTML = "Loading...";
       };
