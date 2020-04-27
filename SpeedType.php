@@ -25,9 +25,20 @@ You should have received a copy of the GNU General Public License
 along with SpeedType. If not, see (https://github.com/RonanChance/SpeedType to your plugin license).
 */
 
-function renym_wordpress_typo_fix( $text ) {
-	return str_replace( 'wordpress', 'WordPress', $text );
+function print_a_word() {
+  $file = "Wordlist.txt";
+  // Convert the text fle into array and get text of each line in each array index
+  $file_arr = file($file);
+  // Random index number
+  $rand_index = rand(0, 9999);
+  // random text from a line. The line will be a random number within the indexes of the array
+  $rand_text = $file_arr[$rand_index];
+  // echo out the random word
+  echo $rand_text;
 }
-add_filter( 'the_content', 'renym_wordpress_typo_fix' );
+
+for ($x = 0; $x <= 10; $x++) {
+    print_a_word();
+}
 
 ?>
