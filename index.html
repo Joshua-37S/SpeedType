@@ -26,12 +26,11 @@
         </h6>
         </div>
         </nowrap>
-        </div>
+      </div>
         <input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus>
-        <h6>
-        <div id="result" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
-        </h6>
         <div id="greenred" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
+        </div>
+        <div id="result" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
         </div>
       </div>
 </body>
@@ -47,17 +46,18 @@ function moveDiv(getDiv, getValue)
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 jQuery('#wordinput').on('keydown', function(e) {
-    if( e.which == 8 || e.which == 46 ){moveDiv('content', +5); MYINDEX --;}
+    if(e.which == 8 || e.which == 46 ){moveDiv('content', +5); TY = TY.slice(0, -1);}
     else if ((e.which > 8)&&(e.which < 46)&&(e.which !== 32)){}
-    else {moveDiv('content', -5); MYINDEX ++;};
+    else if (e.which === 32){
+      console.log(ARRWORDS[MYINDEX]);
+      console.log(TY);
+      if (ARRWORDS[MYINDEX].trimRight() == TY.trimRight()){$("#result").css("color", "green");}
+      else {$("#result").css("color", "red");}
+      TYPED += ' ' + TY; TY = ''; MYINDEX ++;}
+    else {moveDiv('content', -5); TY += String.fromCharCode(e.which).toLowerCase();}
+    $("#greenred").text(ARRWORDS[MYINDEX]);
+    $("#result").text(TYPED);
 });
-$(document).ready(function(){
-    $("#wordinput").on("input", function(){
-        // Print entered value in a div box
-        $("#result").text($(this).val());
-        $("#greenred").text(ALLWORDS.slice(MYINDEX, MYINDEX+1));
-});
-})
 </script>
 
 <script type="text/javascript">
@@ -69,8 +69,12 @@ $(document).ready(function(){
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
-        display.innerHTML = this.responseText;
         ALLWORDS = this.responseText;
+        ARRWORDS = ALLWORDS.split(" ");
+        ALMOST = ARRWORDS.toString();
+        display.innerHTML = ALMOST.replace(/,/g, " ");
+        TY = '';
+        TYPED = '';
         MYINDEX = 0;
       } else {
         display.innerHTML = "Loading...";

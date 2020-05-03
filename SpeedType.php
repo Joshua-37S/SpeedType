@@ -27,6 +27,8 @@ along with SpeedType. If not, see (https://github.com/RonanChance/SpeedType to y
 
 function print_a_word() {
   $file = "Wordlist.txt";
+  $words = "";
+  for ($x = 0; $x <= 10; $x++) {
   // Convert the text fle into array and get text of each line in each array index
   $file_arr = file($file);
   // Random index number
@@ -34,11 +36,12 @@ function print_a_word() {
   // random text from a line. The line will be a random number within the indexes of the array
   $rand_text = $file_arr[$rand_index];
   // echo out the random word
-  echo $rand_text;
+  $rand_text = str_replace("\n", " ", $rand_text);
+  $words .= $rand_text;
+  }
+  echo $words;
 }
 
-for ($x = 0; $x <= 10; $x++) {
-    print_a_word();
-}
+print_a_word();
 
 ?>
