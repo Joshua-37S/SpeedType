@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Speed Type</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
+<section>
 <body class="bg-dark text-white ">
   <header class="bg-secondary text-center p-3 mb-5">
     <h1>Speed Type</h1>
@@ -22,18 +21,19 @@
         <body onload="refreshData()">
         <nowrap>
         <h6>
-        <div id="content" style="margin-left: 200px; white-space: nowrap; padding: 50px;">
+        <div id="content" style="margin-left: 200px;">
         </h6>
         </div>
         </nowrap>
       </div>
-        <input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus>
-        <div id="greenred" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
+        <input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus style="margin-left: 200px";>
+        <div id="greenred" style="margin-left: 0px; white-space: nowrap;">
         </div>
-        <div id="result" style="margin-left: 0px; white-space: nowrap; padding: 50px;">
+        <div id="result" style="margin-left: 0px; white-space: nowrap;">
         </div>
       </div>
 </body>
+</section>
 
 <script type="text/javascript">
 function moveDiv(getDiv, getValue)
@@ -46,7 +46,7 @@ function moveDiv(getDiv, getValue)
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 jQuery('#wordinput').on('keydown', function(e) {
-    if(e.which == 8 || e.which == 46 ){moveDiv('content', +5); TY = TY.slice(0, -1);}
+    if(e.which == 8 || e.which == 46 ){moveDiv('content', +5); TY = TY.slice(0, -1); moveDiv('wordinput', +5)}
     else if ((e.which > 8)&&(e.which < 46)&&(e.which !== 32)){}
     else if (e.which === 32){
       console.log(ARRWORDS[MYINDEX]);
@@ -54,7 +54,7 @@ jQuery('#wordinput').on('keydown', function(e) {
       if (ARRWORDS[MYINDEX].trimRight() == TY.trimRight()){$("#result").css("color", "green");}
       else {$("#result").css("color", "red");}
       TYPED += ' ' + TY; TY = ''; MYINDEX ++;}
-    else {moveDiv('content', -5); TY += String.fromCharCode(e.which).toLowerCase();}
+    else {moveDiv('content', -5); moveDiv('wordinput', -5); TY += String.fromCharCode(e.which).toLowerCase();}
     $("#greenred").text(ARRWORDS[MYINDEX]);
     $("#result").text(TYPED);
 });

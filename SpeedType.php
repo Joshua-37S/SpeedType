@@ -28,7 +28,7 @@ along with SpeedType. If not, see (https://github.com/RonanChance/SpeedType to y
 function print_a_word() {
   $file = "Wordlist.txt";
   $words = "";
-  for ($x = 0; $x <= 10; $x++) {
+  for ($x = 0; $x <= 50; $x++) {
   // Convert the text fle into array and get text of each line in each array index
   $file_arr = file($file);
   // Random index number
