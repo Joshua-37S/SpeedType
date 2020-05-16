@@ -37,6 +37,7 @@ h6{
   font-size: 20px;
   white-space: nowrap;
   padding-top: 20rem;
+  margin-left: 50%;
 }
 
 input {
@@ -44,11 +45,13 @@ input {
   font-weight: bold;
   color: #fff;
   font-size:20px;
-  width: 50%;
+  width: 100%;
   box-sizing: border-box;
   background: transparent;
   border: none;
   outline: none;
+  vertical-align: middle;
+  margin-left: 50%;
 }
 
 

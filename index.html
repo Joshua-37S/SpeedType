@@ -8,30 +8,28 @@
   <title>Speed Type</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<section>
-<body class="bg-dark text-white ">
-  <header class="bg-secondary text-center p-3 mb-5">
-    <h1>Speed Type</h1>
-  </header>
-  <div class="container text-center">
 
-    <!-- Word & Input -->
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <body onload="refreshData()">
-        <nowrap>
-        <h6>
-        <div id="content" style="margin-left: 200px;">
-        </h6>
-        </div>
-        </nowrap>
-      </div>
-        <input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus style="margin-left: 200px";>
-        <div id="greenred" style="margin-left: 0px; white-space: nowrap;">
-        </div>
-        <div id="result" style="margin-left: 0px; white-space: nowrap;">
-        </div>
-      </div>
+<section>
+<h1>Speed Type</h1>
+
+<center>
+<body onload="refreshData()">
+<nowrap>
+  <h5>
+  <div id="time">Time Left</div>
+  </h5>
+  <h6>
+  <div id="content"></div>
+  </h6>
+</nowrap>
+
+<input type="text" class="form-control form-control-lg" placeholder="Start Typing..." id="wordinput" autofocus;>
+
+<div id="greenred"></div>
+
+<div id="result"></div>
+
+</center>
 </body>
 </section>
 
@@ -46,6 +44,11 @@ function moveDiv(getDiv, getValue)
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 jQuery('#wordinput').on('keydown', function(e) {
+    if(STARTED == 0){
+      display = document.querySelector('#time');
+      startTimer(60, display);
+      STARTED = 1;
+    }
     if(e.which == 8 || e.which == 46 ){moveDiv('content', +5); TY = TY.slice(0, -1); moveDiv('wordinput', +5)}
     else if ((e.which > 8)&&(e.which < 46)&&(e.which !== 32)){}
     else if (e.which === 32){
@@ -58,6 +61,23 @@ jQuery('#wordinput').on('keydown', function(e) {
     $("#greenred").text(ARRWORDS[MYINDEX]);
     $("#result").text(TYPED);
 });
+
+function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        seconds;
+    function timer() {
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+        seconds = (diff % 61) | 0;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = seconds;
+        if (diff <= 0) {
+            start = Date.now() + 1000;
+        }
+    };
+    timer();
+    setInterval(timer, 1000);
+}
 </script>
 
 <script type="text/javascript">
@@ -76,6 +96,7 @@ jQuery('#wordinput').on('keydown', function(e) {
         TY = '';
         TYPED = '';
         MYINDEX = 0;
+        STARTED = 0;
       } else {
         display.innerHTML = "Loading...";
       };
